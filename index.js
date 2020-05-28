@@ -16,10 +16,13 @@ app.get("/", (req, res) => {
 const tech = io.of("/tech");
 
 tech.on("connection", (socket) => {
-  console.log("user connected");
-  socket.on("message", (msg) => {
-    console.log(`message: ${msg}`);
-    tech.emit("message", msg);
+  socket.on("join", (data) => {
+    socket.join(data.room);
+    tech.in(data.room).emit("message", `New user joined ${data.room} room`);
+  });
+  socket.on("message", (data) => {
+    console.log(`message: ${data.msg}`);
+    tech.emit("message", data.msg);
   });
   socket.on("another event", (data) => {
     console.log(data);
