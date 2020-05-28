@@ -12,11 +12,14 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/");
 });
 
-io.on("connection", (socket) => {
+//namespace
+const tech = io.of("/tech");
+
+tech.on("connection", (socket) => {
   console.log("user connected");
   socket.on("message", (msg) => {
     console.log(`message: ${msg}`);
-    io.emit("message", msg);
+    tech.emit("message", msg);
   });
   socket.on("another event", (data) => {
     console.log(data);
@@ -25,6 +28,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
 
-    io.emit("message", "user disconnected");
+    tech.emit("message", "user disconnected");
   });
 });
