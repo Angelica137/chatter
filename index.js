@@ -15,6 +15,15 @@ app.get("/", (req, res) => {
 app.get("/javascript", (req, res) => {
   res.sendFile(__dirname + "/public/javascript.html");
 });
+
+app.get("/python", (req, res) => {
+  res.sendFile(__dirname + "/public/python.html");
+});
+
+app.get("/machine_learning", (req, res) => {
+  res.sendFile(__dirname + "/public/machine_learning");
+});
+
 //namespace
 const tech = io.of("/tech");
 
